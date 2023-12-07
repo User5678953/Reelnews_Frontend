@@ -15,7 +15,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   Future<void> performRegistration() async {
     final username = usernameController.text;
     final password = passwordController.text;
-
+  
     try {
       final response = await http.post(
         Uri.parse(

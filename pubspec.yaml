@@ -13,6 +13,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   http: ^0.13.3
   flutter_secure_storage: ^5.0.0
+  news_api_flutter_package: ^1.1.0
 
 dev_dependencies:
   flutter_test:
@@ -22,4 +23,4 @@ dev_dependencies:
   build_web_compilers: ^4.0.4
 
 flutter:
-
+  uses-material-design: true

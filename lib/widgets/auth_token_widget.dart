@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 
-class NewsFeed extends StatelessWidget {
+//This widget is for debugging to display user jwt token from django
+class UserTokenWidget extends StatelessWidget {
   final String token;
 
-  NewsFeed({required this.token});
+  UserTokenWidget({required this.token});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('News Feed'),
+        title: Text('User Token'),
       ),
       body: Center(
         // Display the token on the screen
