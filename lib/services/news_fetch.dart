@@ -7,7 +7,7 @@ class NewsArticles {
 
   Future<void> getNews() async {
     String url =
-        'https://newsapi.org/v2/top-headlines?country=us&category=general&apiKey=d446e80f75794e569d031dde304a73f2';
+        'https://reelnews-api-fe5e8d8c10e8.herokuapp.com/news/top-headlines/?category=general&language=en&country=us';
 
     try {
       var response = await http.get(Uri.parse(url));
