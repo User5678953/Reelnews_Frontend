@@ -15,7 +15,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   Future<void> performRegistration() async {
     final username = usernameController.text;
     final password = passwordController.text;
-  
+
     try {
       final response = await http.post(
         Uri.parse(
@@ -39,8 +39,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         );
       } else {
         final responseData = json.decode(response.body);
-        final errorMessage = responseData[
-            'message'];
+        final errorMessage = responseData['message'];
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text(errorMessage),
@@ -51,7 +50,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text('Oops! Registration error: Sorry, this User already exists // for Developers: $e'),
+          content: Text(
+              'Oops! Registration error: Sorry, this User already exists // for Developers: $e'),
           backgroundColor: Colors.red,
         ),
       );
@@ -61,7 +61,34 @@ class _RegisterScreenState extends State<RegisterScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Register')),
+      appBar: AppBar(
+        backgroundColor: Color.fromARGB(255, 16, 16, 16),
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Text('Reel',
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 40,
+                    color: Colors.yellow)),
+            Text('News',
+                style: TextStyle(
+                    fontSize: 40,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.blue)),
+          ],
+        ),
+        elevation: 4.0,
+        centerTitle: true,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+           color: Colors.white,
+          onPressed: () {
+            Navigator.of(context).pop(); 
+          },
+        ),
+      ),
+
       body: Padding(
         padding: EdgeInsets.all(16.0),
         child: Column(
@@ -74,10 +101,19 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 hintText: 'Enter your username',
                 icon: Icon(Icons.person),
                 border: OutlineInputBorder(),
+                labelStyle: TextStyle(
+                  color: Colors.white, 
+                  fontWeight: FontWeight.bold, 
+                ),
+              ),
+              style: TextStyle(
+                color: Colors.white, 
               ),
               keyboardType: TextInputType.text,
             ),
             SizedBox(height: 16),
+
+            // password field
             TextFormField(
               controller: passwordController,
               decoration: InputDecoration(
@@ -85,13 +121,23 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 hintText: 'Enter your password',
                 icon: Icon(Icons.lock),
                 border: OutlineInputBorder(),
+                labelStyle: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              style: TextStyle(
+                color: Colors.white, 
               ),
               obscureText: true,
             ),
+
+
             SizedBox(height: 24),
             ElevatedButton(
               onPressed: performRegistration,
-              child: Text('Register'),
+              child: Text('Register',
+                  style: TextStyle(fontWeight: FontWeight.bold)),
               style: ElevatedButton.styleFrom(backgroundColor: Colors.blue),
             ),
           ],

@@ -2,6 +2,9 @@
 import 'package:flutter/material.dart';
 import 'package:reel_news/models/article_model.dart';
 import 'package:reel_news/models/category_model.dart';
+import 'package:reel_news/screens/api_news_screen.dart';
+import 'package:reel_news/screens/auth_views/login_screen.dart';
+import 'package:reel_news/screens/single_article_screen.dart';
 import 'package:reel_news/services/categories_fetch.dart';
 import 'package:reel_news/services/news_fetch.dart';
 
@@ -11,6 +14,20 @@ class PublicNewsScreen extends StatefulWidget {
 }
 
 class _PublicNewsScreenState extends State<PublicNewsScreen> {
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  void _logout() {
+    // Navigate to the login screen
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(
+          builder: (context) =>
+              LoginScreen()),
+    );
+  }
+
+  
+  
+  
   // Initialize an empty list of models
   List<CategoryModel> categories = [];
   List<ArticleModel> articles = [];
@@ -38,8 +55,14 @@ class _PublicNewsScreenState extends State<PublicNewsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       appBar: AppBar(
         backgroundColor: Colors.black,
+        leading: IconButton(
+          icon: Icon(Icons.menu, color: Colors.white),
+          onPressed: () =>
+              _scaffoldKey.currentState?.openDrawer(), 
+        ),
         title: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
@@ -55,8 +78,59 @@ class _PublicNewsScreenState extends State<PublicNewsScreen> {
                     color: Colors.blue))
           ],
         ),
+        actions: <Widget> [
+          Container(
+            decoration: BoxDecoration(
+              color: Colors.red, 
+              borderRadius: BorderRadius.circular(8), 
+            ),
+            margin: EdgeInsets.all(8), 
+            child: IconButton(
+              icon: Icon(Icons.logout, color: Colors.white), 
+              onPressed: _logout,
+            ),
+          ),
+        ],
         elevation: 4.0,
       ),
+       drawer: Drawer(
+        child: Container(
+          color: Colors.grey,
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: <Widget>[
+            DrawerHeader(
+              margin: EdgeInsets.zero, 
+              padding: EdgeInsets.zero,
+              decoration: BoxDecoration(
+                color: Colors.blue,
+              ),
+              child: Text(
+                'Menu',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 24,
+                ),
+              ),
+            ),
+            ListTile(
+              leading: Icon(Icons.archive),
+              title: Text('MyArchive'),
+              onTap: () {
+                Navigator.pop(context); 
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => APINewsScreen()
+                  ),
+                );
+              },
+            ),
+                    
+          ],
+        ),
+      ),
+    ),
+
       body: _loading
           ? Center(
               child: Container(
@@ -100,6 +174,7 @@ class _PublicNewsScreenState extends State<PublicNewsScreen> {
                               title: articles[index].title ?? '',
                               desc: articles[index].description ?? '',
                               source: articles[index].source ?? '',
+                              url: articles[index].url ?? 'default_url'
                             );
                           }),
                     ),
@@ -168,18 +243,28 @@ class CategoryTile extends StatelessWidget {
 }
 
 class Newstile extends StatelessWidget {
-  final String imageUrl, title, desc, source;
+  final String imageUrl, title, desc, source, url;
 
   Newstile({
     required this.imageUrl,
     required this.title,
     required this.desc,
     this.source = '',
+    required this.url,
   });
 
-  @override
+ @override
   Widget build(BuildContext context) {
-    return Container(
+    return GestureDetector(
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => SingleArticleScreen(newsUrl: url),
+            ),
+          );
+        },
+    child: Container(
       margin: EdgeInsets.all(8),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
@@ -252,17 +337,21 @@ class Newstile extends StatelessWidget {
             right: 8,
             child: InkWell(
               onTap: () {
-                // TODO: Add functionality later
+                // TODO: Add functionality later for archive button
               },
               child: CircleAvatar(
                 backgroundColor: Colors.blue,
-                radius: 20,
-                child: Icon(Icons.archive, color: Colors.white),
+                radius: 30,
+                child: Icon(
+                  Icons.archive, 
+                  color: Colors.white,
+                  size: 30),
               ),
             ),
           ),
         ],
       ),
+    )
     );
   }
 }

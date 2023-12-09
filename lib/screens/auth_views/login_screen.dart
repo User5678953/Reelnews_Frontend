@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:reel_news/screens/public_news_screen.dart';
-import 'register_screen.dart'; 
+import 'register_screen.dart';
 import 'dart:convert';
 
 //import '../../widgets/auth_token_widget.dart';
 //import 'package:reel_news/screens/api_news_screen.dart';
-
 
 class LoginScreen extends StatefulWidget {
   final String? initialUsername;
@@ -38,7 +37,7 @@ class _LoginScreenState extends State<LoginScreen> {
         Uri.parse(
             'https://reelnews-api-fe5e8d8c10e8.herokuapp.com/auth/login/'),
         headers: {'Content-Type': 'application/json'},
-       body: json.encode({
+        body: json.encode({
           'username': username,
           'password': password,
         }),
@@ -57,8 +56,7 @@ class _LoginScreenState extends State<LoginScreen> {
         if (response.body.isNotEmpty) {
           final responseData = json.decode(response.body);
           if (responseData['message'] != null) {
-            errorMessage = responseData[
-                'message']; 
+            errorMessage = responseData['message'];
           }
         }
         ScaffoldMessenger.of(context).showSnackBar(
@@ -78,7 +76,7 @@ class _LoginScreenState extends State<LoginScreen> {
     }
   }
 
-  @override
+   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -108,20 +106,51 @@ class _LoginScreenState extends State<LoginScreen> {
           children: <Widget>[
             TextFormField(
               controller: usernameController,
-              
+              style: TextStyle(
+                color: Colors.white, 
+                fontWeight: FontWeight.bold, 
+              ),
+              decoration: InputDecoration(
+                labelText: 'Username',
+                hintText: 'Enter your username',
+                icon: Icon(Icons.person),
+                border: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.white),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.grey),
+              ),
+              ),
+              keyboardType: TextInputType.text,
             ),
             SizedBox(height: 16),
             TextFormField(
               controller: passwordController,
-          
+              style: TextStyle(
+                color: Colors.white, 
+                fontWeight: FontWeight.bold, 
+              ),
+              decoration: InputDecoration(
+                labelText: 'Password',
+                hintText: 'Enter your password',
+                icon: Icon(Icons.lock),
+                border: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.white),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.grey),
+                ),
+              ),
+              obscureText: true,
             ),
             SizedBox(height: 24),
             ElevatedButton(
               onPressed: performLogin,
-              child: Text('Login'),
+              child:
+                  Text('Login', style: TextStyle(fontWeight: FontWeight.bold)),
               style: ElevatedButton.styleFrom(
-                primary: Color.fromARGB(255, 16, 16, 16), // Button color
-                onPrimary: Colors.white, 
+                backgroundColor: Colors.blue,
+                foregroundColor: Colors.white,
               ),
             ),
             SizedBox(height: 16),
@@ -130,7 +159,11 @@ class _LoginScreenState extends State<LoginScreen> {
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => RegisterScreen()));
               },
-              child: Text('Don\'t have an account? Register here'),
+              child: Text('Don\'t have an account? Register here',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold, 
+                  )),
             ),
           ],
         ),
