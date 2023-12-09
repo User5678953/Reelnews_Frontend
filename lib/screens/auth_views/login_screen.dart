@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:reel_news/screens/api_news_screen.dart';
-import 'dart:convert';
-//import '../../widgets/auth_token_widget.dart';
+import 'package:reel_news/screens/public_news_screen.dart';
 import 'register_screen.dart'; 
+import 'dart:convert';
+
+//import '../../widgets/auth_token_widget.dart';
+//import 'package:reel_news/screens/api_news_screen.dart';
+
 
 class LoginScreen extends StatefulWidget {
   final String? initialUsername;
@@ -46,7 +49,7 @@ class _LoginScreenState extends State<LoginScreen> {
         final token = responseData['access'];
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => APINewsScreen()),
+          MaterialPageRoute(builder: (context) => PublicNewsScreen()),
         );
       } else {
         // This block is executed when login fails
@@ -78,7 +81,26 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Reel News')),
+      appBar: AppBar(
+        backgroundColor: Color.fromARGB(255, 16, 16, 16),
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Text('Reel',
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 40,
+                    color: Colors.yellow)),
+            Text('News',
+                style: TextStyle(
+                    fontSize: 40,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.blue)),
+          ],
+        ),
+        elevation: 4.0,
+        centerTitle: true,
+      ),
       body: Padding(
         padding: EdgeInsets.all(16.0),
         child: Column(
@@ -86,30 +108,21 @@ class _LoginScreenState extends State<LoginScreen> {
           children: <Widget>[
             TextFormField(
               controller: usernameController,
-              decoration: InputDecoration(
-                labelText: 'Username',
-                hintText: 'Enter your username',
-                icon: Icon(Icons.person),
-                border: OutlineInputBorder(),
-              ),
-              keyboardType: TextInputType.text,
+              
             ),
             SizedBox(height: 16),
             TextFormField(
               controller: passwordController,
-              decoration: InputDecoration(
-                labelText: 'Password',
-                hintText: 'Enter your password',
-                icon: Icon(Icons.lock),
-                border: OutlineInputBorder(),
-              ),
-              obscureText: true,
+          
             ),
             SizedBox(height: 24),
             ElevatedButton(
               onPressed: performLogin,
               child: Text('Login'),
-              style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
+              style: ElevatedButton.styleFrom(
+                primary: Color.fromARGB(255, 16, 16, 16), // Button color
+                onPrimary: Colors.white, 
+              ),
             ),
             SizedBox(height: 16),
             TextButton(
