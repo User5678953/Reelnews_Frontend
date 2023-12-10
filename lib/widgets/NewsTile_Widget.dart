@@ -15,15 +15,12 @@ class Newstile extends StatelessWidget {
     required this.content,
   });
 
-  // Function to launch URL using the updated launchUrl method
+  // Function to launch URL
   Future<void> _launchUrl(String url) async {
     final Uri _url = Uri.parse(url);
-    if (!await canLaunch(_url.toString())) {
+    if (!await launchUrl(_url)) {
       print('Could not launch $url');
-      return;
     }
-
-    await launch(_url.toString());
   }
 
   @override

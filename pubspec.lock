@@ -424,14 +424,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.4"
-  news_api_flutter_package:
-    dependency: "direct main"
-    description:
-      name: news_api_flutter_package
-      sha256: "6b3a28f3b4083be0353326ecf17f99434acc15298bd05a2e0cceac6b9263e018"
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.1.1"
   package_config:
     dependency: transitive
     description:
