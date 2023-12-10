@@ -6,8 +6,14 @@ class NewsArticles {
   List<ArticleModel> news = [];
 
   Future<void> getNews() async {
+    // Replace with your actual API key
+    //String apiKey = 'a579a4147a5089e75fd1164a4d7331e1';
+
+  
+
+    // Updated URL to the GNews API endpoint
     String url =
-        'https://reelnews-api-fe5e8d8c10e8.herokuapp.com/news/top-headlines/?category=general&language=en&country=us';
+        'https://gnews.io/api/v4/search?q=example&lang=en&country=us&max=10&apikey=a579a4147a5089e75fd1164a4d7331e1';
 
     try {
       var response = await http.get(Uri.parse(url));
@@ -15,22 +21,23 @@ class NewsArticles {
       if (response.statusCode == 200) {
         var jsonData = jsonDecode(response.body);
 
-        if (jsonData['status'] == "ok") {
-          jsonData["articles"].forEach((element) {
-            if (element['urlToImage'] != null &&
-                element['description'] != null) {
-              ArticleModel articleModel = ArticleModel(
-                title: element['title'],
-                author: element['author'],
-                description: element['description'],
-                url: element['url'],
-                urlToImage: element['urlToImage'], 
-                content: element['content'],
-                source: element['source']['name'],
-              );
-              news.add(articleModel);
-            }
-          });
+       if (jsonData['totalArticles'] > 0) {
+  jsonData["articles"].forEach((element) {
+    // Check for the existence of necessary fields
+    if (element['image'] != null && element['description'] != null) {
+      ArticleModel articleModel = ArticleModel(
+        title: element['title'],
+        description: element['description'],
+        url: element['url'],
+        urlToImage: element['image'], 
+        content: element['content'],
+        sourceName: element['source'] != null ? element['source']['name'] : null,
+        sourceUrl: element['source'] != null ? element['source']['url'] : null,
+      );
+      news.add(articleModel);
+    }
+  });
+
         }
       } else {
         print('Failed to fetch news. Status code: ${response.statusCode}');

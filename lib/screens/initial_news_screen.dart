@@ -30,8 +30,7 @@ class _InitialNewsScreenState extends State<InitialNewsScreen> {
 
   // Function to handle category tap
   void handleCategoryTap(CategoryModel category) {
-  
-    // TEST navigate to ArchiveScreen 
+    // TEST navigate to ArchiveScreen
     Navigator.push(
       context,
       MaterialPageRoute(
@@ -117,7 +116,7 @@ class _InitialNewsScreenState extends State<InitialNewsScreen> {
                           imageUrl: articles[index].urlToImage ?? '',
                           title: articles[index].title ?? '',
                           desc: articles[index].description ?? '',
-                          source: articles[index].source ?? '',
+                          source: articles[index].sourceName ?? '',
                           url: articles[index].url ?? 'default_url',
                           content: articles[index].content ?? '',
                         );

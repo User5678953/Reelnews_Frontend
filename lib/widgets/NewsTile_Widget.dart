@@ -10,7 +10,7 @@ class Newstile extends StatelessWidget {
     required this.imageUrl,
     required this.title,
     required this.desc,
-    this.source = '',
+    required this.source,
     required this.url,
     required this.content,
   });

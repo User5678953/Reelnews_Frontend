@@ -1,19 +1,31 @@
 class ArticleModel {
-  String? author;
   String? title;
   String? description;
+  String? content;
   String? url;
   String? urlToImage;
-  String? content;
-  String? source;
+  String? sourceName;
+  String? sourceUrl;
 
   ArticleModel({
-    this.author,
     this.title,
-    this.url,
     this.description,
     this.content,
+    this.url,
     this.urlToImage,
-    this.source,
+    this.sourceName,
+    this.sourceUrl,
   });
+
+  factory ArticleModel.fromJson(Map<String, dynamic> json) {
+    return ArticleModel(
+      title: json['title'],
+      description: json['description'],
+      content: json['content'],
+      url: json['url'],
+      urlToImage: json['image'], 
+      sourceName: json['source']['name'],
+      sourceUrl: json['source']['url'],
+    );
+  }
 }
