@@ -1,15 +1,10 @@
 import 'package:flutter/material.dart';
 
-class CategoryNewsScreen extends StatefulWidget {
+class CategoryNewsScreen extends StatelessWidget {
   const CategoryNewsScreen({super.key});
 
-  @override
-  State<CategoryNewsScreen> createState() => _CategoryNewsScreenState();
-}
-
-class _CategoryNewsScreenState extends State<CategoryNewsScreen> {
-  @override
+ @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Container(child: Text("Category Screen"));
   }
 }

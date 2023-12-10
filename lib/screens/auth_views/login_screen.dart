@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:reel_news/screens/public_news_screen.dart';
+import 'package:reel_news/screens/initial_news_screen.dart';
 import 'register_screen.dart';
 import 'dart:convert';
 
 //import '../../widgets/auth_token_widget.dart';
-//import 'package:reel_news/screens/api_news_screen.dart';
+
 
 class LoginScreen extends StatefulWidget {
   final String? initialUsername;
@@ -48,7 +48,7 @@ class _LoginScreenState extends State<LoginScreen> {
         final token = responseData['access'];
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => PublicNewsScreen()),
+          MaterialPageRoute(builder: (context) => InitialNewsScreen()),
         );
       } else {
         // This block is executed when login fails

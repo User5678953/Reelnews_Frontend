@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:reel_news/screens/public_news_screen.dart';
-//import 'package:reel_news/screens/api_news_screen.dart';
+//import 'package:reel_news/screens/initial_news_screen.dart';
+
 import 'package:reel_news/screens/auth_views/login_screen.dart';
 
 void main() {
@@ -19,8 +19,7 @@ class MyApp extends StatelessWidget {
         scaffoldBackgroundColor: Colors.black,
       ),
       home: LoginScreen(),
-      //home: PublicNewsScreen(),
-       //home: APINewsScreen(),
+     
     );
   }
 }
