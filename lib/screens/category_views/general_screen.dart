@@ -70,7 +70,7 @@ class _GeneralScreenState extends State<GeneralScreen> {
                       Radius.circular(10.0),
                     ),
                   ),
-                  alignment: Alignment.centerLeft,
+                  alignment: Alignment.center,
                   padding:
                       EdgeInsets.symmetric(vertical: 3.0, horizontal: 10.0),
                   child: Text(

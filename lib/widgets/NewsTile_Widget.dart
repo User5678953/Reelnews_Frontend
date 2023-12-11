@@ -3,6 +3,39 @@ import 'package:reel_news/models/article_model.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:reel_news/screens/single_article_screen.dart';
 
+class DefaultImage extends StatelessWidget {
+  final String imageUrl;
+  final double width;
+  final double height;
+
+  DefaultImage({
+    required this.imageUrl,
+    this.width = double.infinity, 
+    this.height = 200,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Image.network(
+      imageUrl,
+      width: width,
+      height: height,
+      fit: BoxFit.cover,
+      errorBuilder:
+          (BuildContext context, Object exception, StackTrace? stackTrace) {
+        return Container(
+          width: width,
+          height: height,
+          color: Colors.grey,
+          child: Center(
+            child: Icon(Icons.image, size: 50, color: Colors.white),
+          ),
+        );
+      },
+    );
+  }
+}
+
 class Newstile extends StatelessWidget {
   final String imageUrl, title, desc, source, url, content;
 
@@ -27,7 +60,6 @@ class Newstile extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        // Navigate to SingleArticleScreen when tapped
         Navigator.push(
           context,
           MaterialPageRoute(
@@ -60,7 +92,7 @@ class Newstile extends StatelessWidget {
               children: <Widget>[
                 ClipRRect(
                   borderRadius: BorderRadius.vertical(top: Radius.circular(10)),
-                  child: Image.network(imageUrl, fit: BoxFit.cover),
+                  child: DefaultImage(imageUrl: imageUrl),
                 ),
                 Padding(
                   padding: EdgeInsets.all(8),
@@ -124,20 +156,19 @@ class Newstile extends StatelessWidget {
                 ),
               ),
             ),
-            // WebView button
             Positioned(
               bottom: 8,
               left: 8,
-              child: ElevatedButton(
-                onPressed: () {
-                  // Open URL in a WebView 
+              child: InkWell(
+                onTap: () {
                   _launchUrl(url);
                 },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.transparent,
-                  elevation: 0,
+                child: CircleAvatar(
+                  backgroundColor: Colors.green,
+                  radius: 30,
+                  child: Icon(Icons.chrome_reader_mode,
+                      color: Colors.white, size: 30),
                 ),
-                child: Text('Open WebView'),
               ),
             ),
           ],
