@@ -97,31 +97,34 @@ class Newstile extends StatelessWidget {
                 Padding(
                   padding: EdgeInsets.all(8),
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Text(
                         title,
                         style: TextStyle(
-                          fontSize: 20,
+                          fontSize: 24, // title
                           fontWeight: FontWeight.bold,
                           color: Colors.black87,
                         ),
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                       ),
-                      SizedBox(height: 8),
+                      SizedBox(height: 30),
                       Text(
                         desc,
                         style: TextStyle(
+                          fontSize: 15,
                           color: Colors.black,
                         ),
+                        maxLines: 1, 
+                        overflow: TextOverflow.ellipsis,
                       ),
                     ],
                   ),
                 ),
               ],
             ),
-            if (source.isNotEmpty)
+          if (source.isNotEmpty)
               Positioned(
                 top: 8,
                 left: 8,
