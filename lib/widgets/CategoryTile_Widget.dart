@@ -1,28 +1,59 @@
 import 'package:flutter/material.dart';
-import 'package:reel_news/screens/tabBar_views/archive_screen.dart';
+import 'package:reel_news/models/category_model.dart';
 
-class CategoryTileWidget extends StatelessWidget {
-  final String imageUrl;
-  final String categoryName;
+class CategoryTile_Widget extends StatelessWidget {
+  final CategoryModel category;
 
-  CategoryTileWidget({
-    required this.imageUrl,
-    required this.categoryName,
+  CategoryTile_Widget({
+    required this.category,
   });
 
-  void _handleTap(BuildContext context) {
-    // Handle the tap 
-    Navigator.of(context).push(MaterialPageRoute(
-      builder: (context) => ArchiveScreen(),
-    ));
+  void _navigateToCategoryScreen(BuildContext context) {
+    final categoryName = category.categoryName.toLowerCase();
+
+    // Check the category name and navigate to the screen
+    switch (categoryName) {
+      case 'business':
+        Navigator.pushNamed(context, '/business');
+        break;
+      case 'entertainment':
+        Navigator.pushNamed(context, '/entertainment');
+        break;
+      case 'general':
+        Navigator.pushNamed(context, '/general');
+        break;
+      case 'health':
+        Navigator.pushNamed(context, '/health');
+        break;
+      case 'science':
+        Navigator.pushNamed(context, '/science');
+        break;
+      case 'sports':
+        Navigator.pushNamed(context, '/sports');
+        break;
+      case 'technology':
+        Navigator.pushNamed(context, '/technology');
+        break;
+      case 'world':
+        Navigator.pushNamed(context, '/world');
+        break;
+      case 'nation':
+        Navigator.pushNamed(context, '/nation');
+        break;
+      default:
+        // Handle other categories or show a message
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Category not supported: ${category.categoryName}'),
+          ),
+        );
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        _handleTap(context); 
-      },
+      onTap: () => _navigateToCategoryScreen(context),
       child: Container(
         width: 175,
         height: 450,
@@ -34,7 +65,7 @@ class CategoryTileWidget extends StatelessWidget {
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
             image: DecorationImage(
-              image: NetworkImage(imageUrl),
+              image: NetworkImage(category.imageUrl),
               fit: BoxFit.cover,
             ),
           ),
@@ -47,7 +78,7 @@ class CategoryTileWidget extends StatelessWidget {
               ),
               padding: EdgeInsets.symmetric(horizontal: 2),
               child: Text(
-                categoryName,
+                category.categoryName,
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 16,
@@ -63,4 +94,3 @@ class CategoryTileWidget extends StatelessWidget {
     );
   }
 }
-

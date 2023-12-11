@@ -52,6 +52,20 @@ List<CategoryModel> getCategories() {
         "https://images.unsplash.com/photo-1487058792275-0ad4aaf24ca7?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   );
 
+  // World Category
+  CategoryModel worldCategory = CategoryModel(
+    categoryName: "World",
+    imageUrl:
+        "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=872&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+  );
+
+  // Nation Category
+  CategoryModel nationCategory = CategoryModel(
+    categoryName: "Nation",
+    imageUrl:
+        "https://images.unsplash.com/photo-1577942948749-a3dbb5c6db0a?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+  );
+
   // Add all categories
   categoryList.add(businessCategory);
   categoryList.add(entertainmentCategory);
@@ -60,6 +74,8 @@ List<CategoryModel> getCategories() {
   categoryList.add(scienceCategory);
   categoryList.add(sportsCategory);
   categoryList.add(technologyCategory);
+  categoryList.add(worldCategory);
+  categoryList.add(nationCategory);
 
   return categoryList;
 }

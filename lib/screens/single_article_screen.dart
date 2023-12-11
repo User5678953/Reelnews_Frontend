@@ -1,34 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:reel_news/models/article_model.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:reel_news/screens/auth_views/login_screen.dart';
+import 'package:reel_news/widgets/CommonScreenUI.dart'; 
 
 class SingleArticleScreen extends StatelessWidget {
   final ArticleModel article;
 
   SingleArticleScreen({required this.article});
 
-  // Function to launch URL 
-  Future<void> _launchUrl(String url) async {
-    final Uri _url = Uri.parse(url);
-    if (!await launchUrl(_url)) {
-      print('Could not launch $url');
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.black,
-        title: Text(
-          article.title ?? 'No Title',
-          style: TextStyle(color: Colors.white),
-        ),
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: Colors.white),
-          onPressed: () => Navigator.of(context).pop(),
-        ),
-      ),
+    void _onLogout() {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => LoginScreen()),
+      );
+    }
+
+    return CommonScreenUI(
+      title: article.title ?? 'No Title',
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -47,22 +37,12 @@ class SingleArticleScreen extends StatelessWidget {
                 style: TextStyle(fontSize: 16, color: Colors.white),
               ),
             ),
-            SizedBox(height: 10),
-            if (article.url != null)
-              Center(
-                child: TextButton(
-                  style: TextButton.styleFrom(
-                    backgroundColor: Colors.blue,
-                    primary: Colors.white,
-                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                  ),
-                  child: Text('Read Full Article'),
-                  onPressed: () => _launchUrl(article.url!),
-                ),
-              ),
           ],
         ),
       ),
+      currentIndex: 0,
+      onTabTapped: (index) {},
+      onLogout: _onLogout,
     );
   }
 }

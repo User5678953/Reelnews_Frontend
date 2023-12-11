@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:reel_news/models/article_model.dart';
 import 'package:reel_news/models/category_model.dart';
-import 'package:reel_news/services/categories_fetch.dart';
-import 'package:reel_news/services/news_fetch.dart';
-import 'package:reel_news/widgets/AppBar_Widget.dart';
-import 'package:reel_news/widgets/CategoryTile_Widget.dart';
-import 'package:reel_news/widgets/NewsTile_Widget.dart';
-import 'package:reel_news/widgets/BottomTabbar_Widget.dart';
-import 'package:reel_news/screens/auth_views/login_screen.dart';
 import 'package:reel_news/screens/tabBar_views/archive_screen.dart';
 import 'package:reel_news/screens/tabBar_views/discover_screen.dart';
 import 'package:reel_news/screens/tabBar_views/sources_screen.dart';
+import 'package:reel_news/services/categories_fetch.dart';
+import 'package:reel_news/services/news_fetch.dart';
+import 'package:reel_news/widgets/CommonScreenUI.dart';
+import 'package:reel_news/widgets/CategoryTile_Widget.dart';
+import 'package:reel_news/widgets/NewsTile_Widget.dart';
+import 'package:reel_news/screens/auth_views/login_screen.dart';
 
 class InitialNewsScreen extends StatefulWidget {
   @override
@@ -23,19 +22,10 @@ class _InitialNewsScreenState extends State<InitialNewsScreen> {
   bool _loading = true;
   int _currentIndex = 0;
 
-  void _logout() {
+  void _onLogout() {
     Navigator.pushReplacement(
-        context, MaterialPageRoute(builder: (context) => LoginScreen()));
-  }
-
-  // Function to handle category tap
-  void handleCategoryTap(CategoryModel category) {
-    // TEST navigate to ArchiveScreen
-    Navigator.push(
       context,
-      MaterialPageRoute(
-        builder: (context) => ArchiveScreen(),
-      ),
+      MaterialPageRoute(builder: (context) => LoginScreen()),
     );
   }
 
@@ -46,7 +36,7 @@ class _InitialNewsScreenState extends State<InitialNewsScreen> {
     getNews();
   }
 
-  getNews() async {
+  void getNews() async {
     NewsArticles newsArticlesClass = NewsArticles();
     await newsArticlesClass.getNews();
     articles = newsArticlesClass.news;
@@ -59,7 +49,8 @@ class _InitialNewsScreenState extends State<InitialNewsScreen> {
     setState(() {
       _currentIndex = index;
     });
-    // Handle navigation based on the tapped tab
+ 
+  // Handle navigation based on the tapped tab
     switch (index) {
       case 0:
         Navigator.push(
@@ -76,10 +67,17 @@ class _InitialNewsScreenState extends State<InitialNewsScreen> {
     }
   }
 
+
+
+  void _logout() {
+    Navigator.pushReplacement(
+        context, MaterialPageRoute(builder: (context) => LoginScreen()));
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBarWidget(onMenuTap: () {}, onLogout: _logout),
+    return CommonScreenUI(
+      title: '',
       body: _loading
           ? Center(child: CircularProgressIndicator())
           : Container(
@@ -93,16 +91,8 @@ class _InitialNewsScreenState extends State<InitialNewsScreen> {
                       shrinkWrap: true,
                       scrollDirection: Axis.horizontal,
                       itemBuilder: (context, index) {
-                        return GestureDetector(
-                          onTap: () {
-                            // Handle the category tap
-                            handleCategoryTap(categories[index]);
-                          },
-                          child: CategoryTileWidget(
-                            imageUrl: categories[index].imageUrl ?? "",
-                            categoryName: categories[index].categoryName ?? "",
-                          ),
-                        );
+                        //  use CategoryTile_Widget
+                        return CategoryTile_Widget(category: categories[index]);
                       },
                     ),
                   ),
@@ -126,10 +116,9 @@ class _InitialNewsScreenState extends State<InitialNewsScreen> {
                 ],
               ),
             ),
-      bottomNavigationBar: BottomTabbarWidget(
-        currentIndex: _currentIndex,
-        onTabTapped: _onTabTapped,
-      ),
+      currentIndex: _currentIndex,
+      onTabTapped: _onTabTapped,
+      onLogout: _onLogout,
     );
   }
 }

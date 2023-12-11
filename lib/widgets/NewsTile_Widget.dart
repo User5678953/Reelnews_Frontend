@@ -27,7 +27,7 @@ class Newstile extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        // Navigate to the SingleArticleScreen when tapped
+        // Navigate to SingleArticleScreen when tapped
         Navigator.push(
           context,
           MaterialPageRoute(
@@ -130,7 +130,7 @@ class Newstile extends StatelessWidget {
               left: 8,
               child: ElevatedButton(
                 onPressed: () {
-                  // Open the URL in a WebView when the button is pressed
+                  // Open URL in a WebView 
                   _launchUrl(url);
                 },
                 style: ElevatedButton.styleFrom(

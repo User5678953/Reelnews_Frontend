@@ -6,10 +6,7 @@ class NewsArticles {
   List<ArticleModel> news = [];
 
   Future<void> getNews() async {
-    // Replace with your actual API key
     //String apiKey = 'a579a4147a5089e75fd1164a4d7331e1';
-
-  
 
     // Updated URL to the GNews API endpoint
     String url =
@@ -23,7 +20,8 @@ class NewsArticles {
 
        if (jsonData['totalArticles'] > 0) {
   jsonData["articles"].forEach((element) {
-    // Check for the existence of necessary fields
+
+    // Check for the existence of all fields
     if (element['image'] != null && element['description'] != null) {
       ArticleModel articleModel = ArticleModel(
         title: element['title'],
