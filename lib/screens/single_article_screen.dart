@@ -11,8 +11,8 @@ class DefaultImage extends StatelessWidget {
 
   DefaultImage({
     required this.imageUrl,
-    this.width = double.infinity, // Adjusted to fill the width
-    this.height = 200, // Default height
+    this.width = double.infinity, 
+    this.height = 200, 
   });
 
   @override
@@ -44,12 +44,7 @@ class SingleArticleScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    void _onLogout() {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => LoginScreen()),
-      );
-    }
+  
 
     Future<void> _launchUrl(String url) async {
       final Uri _url = Uri.parse(url);
@@ -106,9 +101,6 @@ class SingleArticleScreen extends StatelessWidget {
           ),
         ],
       ),
-      currentIndex: 0,
-      onTabTapped: (index) {},
-      onLogout: _onLogout,
     );
   }
 }

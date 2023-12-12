@@ -48,13 +48,6 @@ class _WorldScreenState extends State<WorldScreen> {
     }
   }
 
-  void _onLogout() {
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(builder: (context) => LoginScreen()),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return CommonScreenUI(
@@ -99,9 +92,6 @@ class _WorldScreenState extends State<WorldScreen> {
                 ),
               ],
             ),
-      currentIndex: 0,
-      onTabTapped: (index) {},
-      onLogout: _onLogout,
     );
   }
 }

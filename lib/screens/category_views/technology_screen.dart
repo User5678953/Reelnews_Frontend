@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:reel_news/screens/auth_views/login_screen.dart';
 import 'dart:convert';
 
 import 'package:reel_news/widgets/CommonScreenUI.dart';
@@ -48,13 +47,6 @@ class _TechnologyScreenState extends State<TechnologyScreen> {
     }
   }
 
-  void _onLogout() {
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(builder: (context) => LoginScreen()),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return CommonScreenUI(
@@ -99,9 +91,6 @@ class _TechnologyScreenState extends State<TechnologyScreen> {
                 ),
               ],
             ),
-      currentIndex: 0,
-      onTabTapped: (index) {},
-      onLogout: _onLogout,
     );
   }
 }

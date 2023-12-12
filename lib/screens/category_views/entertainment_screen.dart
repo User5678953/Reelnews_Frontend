@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:reel_news/screens/auth_views/login_screen.dart';
+import 'package:reel_news/widgets/CommonScreenUi.dart';
 import 'dart:convert';
-
-import 'package:reel_news/widgets/CommonScreenUI.dart';
 import 'package:reel_news/widgets/NewsTile_Widget.dart';
 
 class EntertainmentScreen extends StatefulWidget {
@@ -46,13 +44,6 @@ class _EntertainmentScreenState extends State<EntertainmentScreen> {
     } catch (e) {
       throw Exception('Failed to connect to the API: $e');
     }
-  }
-
-  void _onLogout() {
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(builder: (context) => LoginScreen()),
-    );
   }
 
   @override
@@ -99,9 +90,6 @@ class _EntertainmentScreenState extends State<EntertainmentScreen> {
                 ),
               ],
             ),
-      currentIndex: 0,
-      onTabTapped: (index) {},
-      onLogout: _onLogout,
     );
   }
 }

@@ -10,7 +10,7 @@ import 'package:reel_news/screens/category_views/sports_screen.dart';
 import 'package:reel_news/screens/category_views/science_screen.dart';
 import 'package:reel_news/screens/category_views/health_screen.dart';
 import 'package:reel_news/screens/tabBar_views/archive_screen.dart';
-import 'package:reel_news/screens/tabBar_views/discover_screen.dart';
+import 'package:reel_news/screens/tabBar_views/my_news_screen.dart';
 import 'package:reel_news/screens/tabBar_views/sources_screen.dart';
 
 
@@ -41,7 +41,7 @@ class MyApp extends StatelessWidget {
         '/science': (context) => ScienceScreen(),
         '/health': (context) => HealthScreen(),
         '/archive': (context) => ArchiveScreen(),
-        '/discover': (context) => DiscoverScreen(),
+        '/discover': (context) => MyNewsScreen(),
         '/sources': (context) => SourcesScreen(),
       },
     );

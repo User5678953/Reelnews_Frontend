@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:reel_news/models/article_model.dart';
 import 'package:reel_news/models/category_model.dart';
 import 'package:reel_news/screens/tabBar_views/archive_screen.dart';
-import 'package:reel_news/screens/tabBar_views/discover_screen.dart';
+import 'package:reel_news/screens/tabBar_views/my_news_screen.dart';
 import 'package:reel_news/screens/tabBar_views/sources_screen.dart';
 import 'package:reel_news/services/categories_fetch.dart';
 import 'package:reel_news/services/news_fetch.dart';
@@ -20,15 +20,7 @@ class _InitialNewsScreenState extends State<InitialNewsScreen> {
   List<CategoryModel> categories = [];
   List<ArticleModel> articles = [];
   bool _loading = true;
-  int _currentIndex = 0;
-
-  void _onLogout() {
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(builder: (context) => LoginScreen()),
-    );
-  }
-
+  
   @override
   void initState() {
     super.initState();
@@ -45,34 +37,6 @@ class _InitialNewsScreenState extends State<InitialNewsScreen> {
     });
   }
 
-  void _onTabTapped(int index) {
-    setState(() {
-      _currentIndex = index;
-    });
- 
-  // Handle navigation based on the tapped tab
-    switch (index) {
-      case 0:
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => ArchiveScreen()));
-        break;
-      case 1:
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => DiscoverScreen()));
-        break;
-      case 2:
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => SourcesScreen()));
-        break;
-    }
-  }
-
-
-
-  void _logout() {
-    Navigator.pushReplacement(
-        context, MaterialPageRoute(builder: (context) => LoginScreen()));
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -116,9 +80,6 @@ class _InitialNewsScreenState extends State<InitialNewsScreen> {
                 ],
               ),
             ),
-      currentIndex: _currentIndex,
-      onTabTapped: _onTabTapped,
-      onLogout: _onLogout,
     );
   }
 }

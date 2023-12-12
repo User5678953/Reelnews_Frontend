@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:reel_news/screens/initial_news_screen.dart';
+import 'package:reel_news/screens/auth_views/login_screen.dart';
+import 'package:reel_news/screens/initial_news_screen.dart'; 
 
 class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
-  final VoidCallback onLogout;
-
-  AppBarWidget({required this.onLogout, required Null Function() onMenuTap});
+  AppBarWidget();
 
   @override
   Widget build(BuildContext context) {
@@ -12,7 +11,7 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
       backgroundColor: Colors.black,
       leading: Container(
         decoration: BoxDecoration(
-          color: Colors.blue, 
+          color: Colors.blue,
           borderRadius: BorderRadius.circular(8),
         ),
         margin: EdgeInsets.all(8),
@@ -23,17 +22,15 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
               color: Colors.white,
               size: 24,
             ),
-            onPressed: () {
-              Navigator.pushAndRemoveUntil(
+             onPressed: () {
+              Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(builder: (context) => InitialNewsScreen()),
-                (Route<dynamic> route) => false,
               );
             },
           ),
         ),
       ),
-      // title
       title: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
@@ -67,9 +64,14 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
               icon: Icon(
                 Icons.logout,
                 color: Colors.white,
-                size: 24, 
+                size: 24,
               ),
-              onPressed: onLogout,
+              onPressed: () {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => LoginScreen()),
+                );
+              },
             ),
           ),
         ),

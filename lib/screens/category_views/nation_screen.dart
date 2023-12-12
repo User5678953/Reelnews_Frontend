@@ -48,13 +48,6 @@ class _NationScreenState extends State<NationScreen> {
     }
   }
 
-  void _onLogout() {
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(builder: (context) => LoginScreen()),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return CommonScreenUI(
@@ -99,9 +92,6 @@ class _NationScreenState extends State<NationScreen> {
                 ),
               ],
             ),
-      currentIndex: 0,
-      onTabTapped: (index) {},
-      onLogout: _onLogout,
     );
   }
 }

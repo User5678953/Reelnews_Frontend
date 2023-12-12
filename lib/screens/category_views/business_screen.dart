@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:reel_news/screens/auth_views/login_screen.dart';
 import 'dart:convert';
-
-import 'package:reel_news/widgets/CommonScreenUI.dart';
+import 'package:reel_news/widgets/CommonScreenUi.dart';
 import 'package:reel_news/widgets/NewsTile_Widget.dart';
 
 class BusinessScreen extends StatefulWidget {
@@ -48,14 +46,7 @@ class _BusinessScreenState extends State<BusinessScreen> {
     }
   }
 
-  void _onLogout() {
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(builder: (context) => LoginScreen()),
-    );
-  }
-
-   @override
+  @override
   Widget build(BuildContext context) {
     return CommonScreenUI(
       title: 'Business',
@@ -71,9 +62,7 @@ class _BusinessScreenState extends State<BusinessScreen> {
                     ),
                   ),
                   alignment: Alignment.center,
-                  padding: EdgeInsets.symmetric(
-                      vertical: 3.0,
-                      horizontal: 5.0), 
+                  padding: EdgeInsets.symmetric(vertical: 3.0, horizontal: 5.0),
                   child: Text(
                     'Business',
                     style: TextStyle(
@@ -100,9 +89,6 @@ class _BusinessScreenState extends State<BusinessScreen> {
                 ),
               ],
             ),
-      currentIndex: 0,
-      onTabTapped: (index) {},
-      onLogout: _onLogout,
     );
   }
 }
