@@ -46,7 +46,7 @@ class MyApp extends StatelessWidget {
         '/health': (context) => HealthScreen(),
         '/archive': (context) => ArchiveScreen(),
         '/discover': (context) => MyNewsScreen(),
-        '/sources': (context) => MySourcesScreen(),
+        '/sources': (context) => SourceNewsScreen(),
       },
     );
   }

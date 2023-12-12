@@ -1,76 +1,46 @@
 import 'package:flutter/material.dart';
-import 'package:reel_news/services/my_news_fetch.dart';
-import 'package:reel_news/utility/user_source_subscribed_list.dart';
+import 'package:reel_news/models/article_model.dart';
+import 'package:reel_news/services/main_news_fetch.dart';
+import 'package:reel_news/widgets/CommonScreenUI.dart'; 
+import 'package:reel_news/widgets/news_source_tile_w_toggle.dart';
 
-class MySourcesScreen extends StatefulWidget {
+class SourceNewsScreen extends StatefulWidget {
   @override
-  _MySourcesScreenState createState() => _MySourcesScreenState();
+  State<SourceNewsScreen> createState() => _SourceNewsScreenState();
 }
 
-class _MySourcesScreenState extends State<MySourcesScreen> {
-  List<String> _selectedSources = [];
-  List<String> _fetchedSources = []; 
+class _SourceNewsScreenState extends State<SourceNewsScreen> {
+  List<ArticleModel> articles = [];
+  bool _loading = true;
 
   @override
   void initState() {
     super.initState();
-    _selectedSources = UserSourceSubScribedList.getSelectedSources();
+    getNews();
   }
 
-  void _toggleSource(String sourceName, bool isSubscribed) {
+  void getNews() async {
+    NewsArticles newsArticlesClass = NewsArticles();
+    await newsArticlesClass.getNews();
+    articles = newsArticlesClass.news;
     setState(() {
-      if (isSubscribed) {
-        _selectedSources.add(sourceName);
-      } else {
-        _selectedSources.remove(sourceName);
-      }
-      UserSourceSubScribedList.setSelectedSources(_selectedSources);
+      _loading = false;
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('My Sources'),
-      ),
-      body: Column(
-        children: [
-          FetchSourcesWidget(
-            onSourcesFetched: (List<String> sources) {
-              setState(() {
-                _fetchedSources = sources;
-              });
-            },
-          ),
-          Expanded(
-            child: ListView.builder(
-              itemCount: _fetchedSources.length,
+    return CommonScreenUI(
+      title: 'News Sources',
+      body: _loading
+          ? Center(child: CircularProgressIndicator())
+          : ListView.builder(
+              itemCount: articles.length,
               itemBuilder: (context, index) {
-                String source = _fetchedSources[index];
-                return ListTile(
-                  title: Text(source),
-                  trailing: Switch(
-                    value: _selectedSources.contains(source),
-                    onChanged: (bool value) {
-                      _toggleSource(source, value);
-                    },
-                  ),
-                );
+                return NewsSourceTileWithToggle(
+                    sourceName: articles[index].sourceName ?? 'Unknown Source');
               },
             ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: sourceNames.isEmpty
-          ? CircularProgressIndicator()
-          : throw UnimplementedError()
     );
   }
 }

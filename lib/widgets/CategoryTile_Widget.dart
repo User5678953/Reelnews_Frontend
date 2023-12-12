@@ -41,7 +41,7 @@ class CategoryTile_Widget extends StatelessWidget {
         Navigator.pushNamed(context, '/nation');
         break;
       default:
-        // Handle other categories or show a message
+        
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text('Category not supported: ${category.categoryName}'),

@@ -19,7 +19,7 @@ class _BottomTabbarWidgetState extends State<BottomTabbarWidget> {
     switch (index) {
       case 0:
         Navigator.push(
-            context, MaterialPageRoute(builder: (context) => MySourcesScreen()));
+            context, MaterialPageRoute(builder: (context) => SourceNewsScreen()));
         break;
       case 1:
         Navigator.push(
@@ -50,7 +50,7 @@ class _BottomTabbarWidgetState extends State<BottomTabbarWidget> {
           label: 'MyNews', 
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.history),
+          icon: Icon(Icons.folder),
           label: 'MyArchives',
         ),
       ],

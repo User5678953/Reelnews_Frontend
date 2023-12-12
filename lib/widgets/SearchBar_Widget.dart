@@ -41,7 +41,7 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
                 selectedCountry = newValue!;
               });
             },
-            items: <String>['us', 'gb', 'ca', 'au'] // Add more country codes
+            items: <String>['us', 'gb', 'ca', 'au']
                 .map<DropdownMenuItem<String>>((String value) {
               return DropdownMenuItem<String>(
                 value: value,
@@ -58,7 +58,7 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
                 selectedMax = newValue!;
               });
             },
-            items: <int>[1, 5, 10, 20] // Add more max options
+            items: <int>[1, 5, 10, 20] 
                 .map<DropdownMenuItem<int>>((int value) {
               return DropdownMenuItem<int>(
                 value: value,
@@ -76,7 +76,7 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
               });
             },
             items:
-                <String>['publishedAt', 'relevance'] // Add more sorting options
+                <String>['publishedAt', 'relevance'] 
                     .map<DropdownMenuItem<String>>((String value) {
               return DropdownMenuItem<String>(
                 value: value,

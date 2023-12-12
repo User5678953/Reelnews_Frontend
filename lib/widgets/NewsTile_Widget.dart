@@ -10,7 +10,7 @@ class DefaultImage extends StatelessWidget {
 
   DefaultImage({
     required this.imageUrl,
-    this.width = double.infinity, 
+    this.width = double.infinity,
     this.height = 200,
   });
 
@@ -76,12 +76,13 @@ class Newstile extends StatelessWidget {
       child: Container(
         margin: EdgeInsets.all(8),
         decoration: BoxDecoration(
+          color: Color.fromARGB(255, 131, 131, 131), 
           borderRadius: BorderRadius.circular(10),
           boxShadow: [
             BoxShadow(
-              color: const Color.fromARGB(255, 236, 238, 240).withOpacity(0.5),
-              spreadRadius: 2,
-              blurRadius: 7,
+              color: Colors.grey.withOpacity(0.5),
+              spreadRadius: 0,
+              blurRadius: 6,
               offset: Offset(0, 3),
             ),
           ],
@@ -89,34 +90,36 @@ class Newstile extends StatelessWidget {
         child: Stack(
           children: [
             Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 ClipRRect(
                   borderRadius: BorderRadius.vertical(top: Radius.circular(10)),
                   child: DefaultImage(imageUrl: imageUrl),
                 ),
                 Padding(
-                  padding: EdgeInsets.all(8),
+                  padding: EdgeInsets.fromLTRB(
+                      12, 10, 12, 70), 
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
                         title,
                         style: TextStyle(
-                          fontSize: 24, // title
+                          fontSize: 20,
                           fontWeight: FontWeight.bold,
                           color: Colors.black87,
                         ),
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                       ),
-                      SizedBox(height: 30),
+                      SizedBox(height: 6),
                       Text(
                         desc,
                         style: TextStyle(
-                          fontSize: 15,
-                          color: Colors.black,
+                          fontSize: 16,
+                          color: Colors.black54,
                         ),
-                        maxLines: 1, 
+                        maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                       ),
                     ],
@@ -124,7 +127,7 @@ class Newstile extends StatelessWidget {
                 ),
               ],
             ),
-          if (source.isNotEmpty)
+            if (source.isNotEmpty)
               Positioned(
                 top: 8,
                 left: 8,

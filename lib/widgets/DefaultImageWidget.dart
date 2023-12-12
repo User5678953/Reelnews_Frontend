@@ -24,7 +24,7 @@ class DefaultImage extends StatelessWidget {
         return Container(
           width: width,
           height: height,
-          color: Colors.grey, // grey box
+          color: Colors.grey, 
           child: Center(
             child: Icon(Icons.image,
                 size: 50, color: Colors.white), 
