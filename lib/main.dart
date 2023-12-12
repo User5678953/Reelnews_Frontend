@@ -11,10 +11,14 @@ import 'package:reel_news/screens/category_views/science_screen.dart';
 import 'package:reel_news/screens/category_views/health_screen.dart';
 import 'package:reel_news/screens/tabBar_views/archive_screen.dart';
 import 'package:reel_news/screens/tabBar_views/my_news_screen.dart';
-import 'package:reel_news/screens/tabBar_views/sources_screen.dart';
+import 'package:reel_news/screens/tabBar_views/my_sources_screen.dart';
+import 'package:reel_news/utility/user_source_subscribed_list.dart';
 
 
-void main() {
+Future<void> main() async {
+
+   WidgetsFlutterBinding.ensureInitialized();
+  await UserSourceSubScribedList.init();
   runApp(MyApp());
 }
 
@@ -42,7 +46,7 @@ class MyApp extends StatelessWidget {
         '/health': (context) => HealthScreen(),
         '/archive': (context) => ArchiveScreen(),
         '/discover': (context) => MyNewsScreen(),
-        '/sources': (context) => SourcesScreen(),
+        '/sources': (context) => MySourcesScreen(),
       },
     );
   }

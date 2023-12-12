@@ -1,15 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:reel_news/models/article_model.dart';
 import 'package:reel_news/models/category_model.dart';
-import 'package:reel_news/screens/tabBar_views/archive_screen.dart';
-import 'package:reel_news/screens/tabBar_views/my_news_screen.dart';
-import 'package:reel_news/screens/tabBar_views/sources_screen.dart';
 import 'package:reel_news/services/categories_fetch.dart';
-import 'package:reel_news/services/news_fetch.dart';
+import 'package:reel_news/services/main_news_fetch.dart';
 import 'package:reel_news/widgets/CommonScreenUI.dart';
 import 'package:reel_news/widgets/CategoryTile_Widget.dart';
 import 'package:reel_news/widgets/NewsTile_Widget.dart';
-import 'package:reel_news/screens/auth_views/login_screen.dart';
+
 
 class InitialNewsScreen extends StatefulWidget {
   @override

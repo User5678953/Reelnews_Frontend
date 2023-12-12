@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:reel_news/screens/tabBar_views/archive_screen.dart';
 import 'package:reel_news/screens/tabBar_views/my_news_screen.dart';
-import 'package:reel_news/screens/tabBar_views/sources_screen.dart';
+import 'package:reel_news/screens/tabBar_views/my_sources_screen.dart';
 
 class BottomTabbarWidget extends StatefulWidget {
   @override
@@ -19,7 +19,7 @@ class _BottomTabbarWidgetState extends State<BottomTabbarWidget> {
     switch (index) {
       case 0:
         Navigator.push(
-            context, MaterialPageRoute(builder: (context) => SourcesScreen()));
+            context, MaterialPageRoute(builder: (context) => MySourcesScreen()));
         break;
       case 1:
         Navigator.push(

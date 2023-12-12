@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:reel_news/models/article_model.dart';
-import 'package:reel_news/screens/auth_views/login_screen.dart';
 import 'package:reel_news/widgets/CommonScreenUI.dart';
 import 'package:url_launcher/url_launcher.dart';
 

@@ -8,14 +8,17 @@ class FetchSourcesWidget extends StatefulWidget {
 }
 
 class _FetchSourcesWidgetState extends State<FetchSourcesWidget> {
-  List<String> sourceNames = [];
+  List<String> sourceTESTNames = ["test",
+    "test",
+    "test",
+    "test",
+  ];
 
   // Fetch sources from GNews API
   Future<void> fetchSources() async {
     try {
-      // Updated URL to the GNews API endpoint for sources
       String url =
-          'https://gnews.io/api/v4/sources?lang=en&country=us&apikey=a579a4147a5089e75fd1164a4d7331e1';
+          'https://gnews.io/api/v4/top-headlines?category=general&apikey=a579a4147a5089e75fd1164a4d7331e1';
 
       final response = await http.get(Uri.parse(url));
 
@@ -26,12 +29,12 @@ class _FetchSourcesWidgetState extends State<FetchSourcesWidget> {
           // Extract source names from the response data
           final sources = data['sources'];
           for (var source in sources) {
-            sourceNames.add(source['name']);
+            sourceTESTNames.add(source['name']);
           }
 
           setState(() {});
         } else {
-          print('Failed to fetch sources: ${data['message']}');
+          print('Response data: $data');
         }
       } else {
         print('Failed to fetch sources: ${response.statusCode}');
@@ -49,17 +52,13 @@ class _FetchSourcesWidgetState extends State<FetchSourcesWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: sourceNames.isEmpty
-          ? CircularProgressIndicator()
-          : ListView.builder(
-              itemCount: sourceNames.length,
-              itemBuilder: (context, index) {
-                return ListTile(
-                  title: Text(sourceNames[index]),
-                );
-              },
-            ),
-    );
+    var responseStatus;
+    if (responseStatus == 200) {
+      return Center(
+        child: CircularProgressIndicator(),
+      );
+    }
+
+    return SizedBox.shrink();
   }
 }
