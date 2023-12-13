@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:reel_news/Dev/storage_service.dart';
 import 'package:reel_news/models/article_model.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:reel_news/screens/single_article_screen.dart';
@@ -36,7 +37,7 @@ class DefaultImage extends StatelessWidget {
   }
 }
 
-class Newstile extends StatelessWidget {
+class Newstile extends StatefulWidget {
   final String imageUrl, title, desc, source, url, content;
 
   Newstile({
@@ -48,6 +49,11 @@ class Newstile extends StatelessWidget {
     required this.content,
   });
 
+  @override
+  _NewstileState createState() => _NewstileState();
+}
+
+class _NewstileState extends State<Newstile> {
   // Function to launch URL
   Future<void> _launchUrl(String url) async {
     final Uri _url = Uri.parse(url);
@@ -55,6 +61,14 @@ class Newstile extends StatelessWidget {
       print('Could not launch $url');
     }
   }
+
+  // Function to archive an article
+void archiveArticle() async {
+    await StorageService()
+        .archiveArticle(widget.title, widget.url, widget.imageUrl);
+    print('Article archived: ${widget.title}');
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -66,10 +80,10 @@ class Newstile extends StatelessWidget {
           MaterialPageRoute(
             builder: (context) => SingleArticleScreen(
                 article: ArticleModel(
-              title: title,
-              content: content,
-              urlToImage: imageUrl,
-              url: url,
+              title: widget.title,
+              content: widget.content,
+              urlToImage: widget.imageUrl,
+              url: widget.url,
             )),
           ),
         );
@@ -93,10 +107,9 @@ class Newstile extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                
                 ClipRRect(
                   borderRadius: BorderRadius.vertical(top: Radius.circular(10)),
-                  child: DefaultImage(imageUrl: imageUrl),
+                  child: DefaultImage(imageUrl: widget.imageUrl),
                 ),
                 Padding(
                   padding: EdgeInsets.fromLTRB(12, 10, 12, 70),
@@ -104,7 +117,7 @@ class Newstile extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        title,
+                        widget.title,
                         style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
@@ -113,9 +126,9 @@ class Newstile extends StatelessWidget {
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                       ),
-                      SizedBox(height: 6), 
+                      SizedBox(height: 6),
                       Text(
-                        desc,
+                        widget.desc,
                         style: TextStyle(
                           fontSize: 16,
                           color: Colors.black54,
@@ -128,7 +141,7 @@ class Newstile extends StatelessWidget {
                 ),
               ],
             ),
-            if (source.isNotEmpty)
+            if (widget.source.isNotEmpty)
               Positioned(
                 top: 8,
                 left: 8,
@@ -139,7 +152,7 @@ class Newstile extends StatelessWidget {
                     borderRadius: BorderRadius.circular(15),
                   ),
                   child: Text(
-                    source,
+                    widget.source,
                     style: TextStyle(
                       color: Colors.black,
                       fontSize: 16,
@@ -152,10 +165,7 @@ class Newstile extends StatelessWidget {
               bottom: 8,
               right: 8,
               child: InkWell(
-                onTap: () {
-                  print('Archive button tapped for article: $title');
-                  // TODO: Implement archive functionality
-                },
+                onTap: archiveArticle,
                 child: CircleAvatar(
                   backgroundColor: Colors.blue,
                   radius: 30,
@@ -163,15 +173,12 @@ class Newstile extends StatelessWidget {
                 ),
               ),
             ),
-            // link button to open the article URL
+            // Link button to open the article URL
             Positioned(
               bottom: 8,
               left: 8,
               child: InkWell(
-                onTap: () {
-                  _launchUrl(url); 
-                  // Launch the article URL
-                },
+                onTap: () => _launchUrl(widget.url),
                 child: CircleAvatar(
                   backgroundColor: Colors.green,
                   radius: 30,

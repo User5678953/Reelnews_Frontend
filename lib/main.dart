@@ -13,12 +13,17 @@ import 'package:reel_news/screens/tabBar_views/my_archive_screen.dart';
 import 'package:reel_news/screens/tabBar_views/my_news_screen.dart';
 import 'package:reel_news/screens/tabBar_views/my_sources_screen.dart';
 import 'package:reel_news/utility/user_source_subscribed_list.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 
 Future<void> main() async {
 
    WidgetsFlutterBinding.ensureInitialized();
   await UserSourceSubScribedList.init();
+
+  WidgetsFlutterBinding.ensureInitialized();
+  await SharedPreferences.getInstance();
+  
   runApp(MyApp());
 }
 

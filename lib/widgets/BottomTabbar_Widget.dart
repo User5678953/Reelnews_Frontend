@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:reel_news/screens/tabBar_views/my_archive_screen.dart';
+import 'package:reel_news/Dev/archived_articles_screen.dart';
 import 'package:reel_news/screens/tabBar_views/my_news_screen.dart';
 import 'package:reel_news/screens/tabBar_views/my_sources_screen.dart';
 
@@ -27,7 +28,7 @@ class _BottomTabbarWidgetState extends State<BottomTabbarWidget> {
         break;
       case 2:
         Navigator.push(
-            context, MaterialPageRoute(builder: (context) => ArchiveScreen()));
+            context, MaterialPageRoute(builder: (context) => ArchivedArticlesScreen()));
         break;
     }
   }
