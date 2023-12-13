@@ -14,7 +14,8 @@ class NewsSourceTileWithToggle extends StatefulWidget {
 }
 
 class _NewsSourceTileWithToggleState extends State<NewsSourceTileWithToggle> {
-  bool isSubscribed = false;
+  bool isSubscribed = false; 
+  // Tracks the subscription status
 
   @override
   void initState() {
@@ -22,6 +23,7 @@ class _NewsSourceTileWithToggleState extends State<NewsSourceTileWithToggle> {
     _loadInitialSubscriptionStatus();
   }
 
+  // Load the initial subscription status when the widget is initialized
   void _loadInitialSubscriptionStatus() {
     List<String> subscribedSources =
         UserSourceSubScribedList.getSelectedSources();
@@ -30,6 +32,7 @@ class _NewsSourceTileWithToggleState extends State<NewsSourceTileWithToggle> {
     });
   }
 
+  // Handle the toggle switch state change
   void _handleToggle(bool value) {
     setState(() {
       isSubscribed = value;

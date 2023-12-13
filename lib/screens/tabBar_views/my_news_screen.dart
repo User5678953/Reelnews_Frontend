@@ -41,23 +41,44 @@ class _MyNewsScreenState extends State<MyNewsScreen> {
 
     return CommonScreenUI(
       title: 'My News',
-      body: _loading
-          ? Center(child: CircularProgressIndicator())
-          : subscribedSources.isEmpty
-              ? _noSubscribedSourcesWidget(context)
-              : ListView.builder(
-                  itemCount: articles.length,
-                  itemBuilder: (context, index) {
-                    return Newstile(
-                      imageUrl: articles[index].urlToImage ?? '',
-                      title: articles[index].title ?? '',
-                      desc: articles[index].description ?? '',
-                      source: articles[index].sourceName ?? '',
-                      url: articles[index].url ?? '',
-                      content: articles[index].content ?? '',
-                    );
-                  },
-                ),
+      body: Column(
+        children: [
+          Container(
+            decoration: BoxDecoration(
+              color: Colors.blue,
+              borderRadius: BorderRadius.all(Radius.circular(10.0)),
+            ),
+            alignment: Alignment.center,
+            padding: EdgeInsets.symmetric(vertical: 3.0, horizontal: 5.0),
+            child: Text(
+              "MyNews",
+              style: TextStyle(
+                fontSize: 24.0,
+                color: Colors.white,
+              ),
+            ),
+          ),
+          Expanded(
+            child: _loading
+                ? Center(child: CircularProgressIndicator())
+                : subscribedSources.isEmpty
+                    ? _noSubscribedSourcesWidget(context)
+                    : ListView.builder(
+                        itemCount: articles.length,
+                        itemBuilder: (context, index) {
+                          return Newstile(
+                            imageUrl: articles[index].urlToImage ?? '',
+                            title: articles[index].title ?? '',
+                            desc: articles[index].description ?? '',
+                            source: articles[index].sourceName ?? '',
+                            url: articles[index].url ?? '',
+                            content: articles[index].content ?? '',
+                          );
+                        },
+                      ),
+          ),
+        ],
+      ),
     );
   }
 
@@ -68,16 +89,17 @@ class _MyNewsScreenState extends State<MyNewsScreen> {
         children: [
           const Text(
             "You haven't subscribed to any sources yet.",
-            style: TextStyle(
-              fontSize: 16,
-              color: Colors.white)
+            style: TextStyle(fontSize: 16, color: Colors.white),
           ),
-          SizedBox(height: 20),
-          ElevatedButton(
-            onPressed: () => Navigator.pushNamed(
-                context, '/sources'), 
-            child: Text('Go to MySources', style: TextStyle(color: Colors.white)),
-            style: ElevatedButton.styleFrom(primary: Colors.blue),
+          Center(
+            child: ElevatedButton(
+              onPressed: () => Navigator.pushNamed(context, '/sources'),
+              child: Text(
+                'Go to MySources',
+                style: TextStyle(color: Colors.white),
+              ),
+              style: ElevatedButton.styleFrom(primary: Colors.blue),
+            ),
           ),
         ],
       ),

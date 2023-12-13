@@ -43,8 +43,6 @@ class SingleArticleScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-  
-
     Future<void> _launchUrl(String url) async {
       final Uri _url = Uri.parse(url);
       if (!await launchUrl(_url)) {
@@ -64,10 +62,23 @@ class SingleArticleScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                Container(
+                  decoration: BoxDecoration(
+                    color: Colors.blue,
+                    borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                  ),
+                  alignment: Alignment.center,
+                  padding: EdgeInsets.symmetric(vertical: 3.0, horizontal: 5.0),
+                  child: Text(
+                    "",
+                    style: TextStyle(
+                      fontSize: 24.0,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
                 article.urlToImage != null
-                    ? DefaultImage(
-                        imageUrl:
-                            article.urlToImage!) // Using DefaultImage here
+                    ? DefaultImage(imageUrl: article.urlToImage!)
                     : Container(
                         height: 200,
                         color: Colors.grey,
@@ -84,7 +95,7 @@ class SingleArticleScreen extends StatelessWidget {
             ),
           ),
           Positioned(
-            bottom: 16,
+           bottom: 5,
             right: 16,
             child: InkWell(
               onTap: () {
@@ -92,7 +103,7 @@ class SingleArticleScreen extends StatelessWidget {
               },
               child: CircleAvatar(
                 backgroundColor: Colors.green,
-                radius: 40, // Size of the button
+                radius: 40, 
                 child: Icon(Icons.chrome_reader_mode,
                     color: Colors.white, size: 30),
               ),

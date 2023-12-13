@@ -60,6 +60,7 @@ class Newstile extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
+        // Navigate to SingleArticleScreen when tapped
         Navigator.push(
           context,
           MaterialPageRoute(
@@ -76,7 +77,7 @@ class Newstile extends StatelessWidget {
       child: Container(
         margin: EdgeInsets.all(8),
         decoration: BoxDecoration(
-          color: Color.fromARGB(255, 131, 131, 131), 
+          color: Color.fromARGB(255, 131, 131, 131),
           borderRadius: BorderRadius.circular(10),
           boxShadow: [
             BoxShadow(
@@ -92,13 +93,13 @@ class Newstile extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
+                
                 ClipRRect(
                   borderRadius: BorderRadius.vertical(top: Radius.circular(10)),
                   child: DefaultImage(imageUrl: imageUrl),
                 ),
                 Padding(
-                  padding: EdgeInsets.fromLTRB(
-                      12, 10, 12, 70), 
+                  padding: EdgeInsets.fromLTRB(12, 10, 12, 70),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -112,7 +113,7 @@ class Newstile extends StatelessWidget {
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                       ),
-                      SizedBox(height: 6),
+                      SizedBox(height: 6), 
                       Text(
                         desc,
                         style: TextStyle(
@@ -162,12 +163,14 @@ class Newstile extends StatelessWidget {
                 ),
               ),
             ),
+            // link button to open the article URL
             Positioned(
               bottom: 8,
               left: 8,
               child: InkWell(
                 onTap: () {
-                  _launchUrl(url);
+                  _launchUrl(url); 
+                  // Launch the article URL
                 },
                 child: CircleAvatar(
                   backgroundColor: Colors.green,

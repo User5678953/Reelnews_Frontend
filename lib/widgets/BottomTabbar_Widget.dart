@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:reel_news/screens/tabBar_views/archive_screen.dart';
+import 'package:reel_news/screens/tabBar_views/my_archive_screen.dart';
 import 'package:reel_news/screens/tabBar_views/my_news_screen.dart';
 import 'package:reel_news/screens/tabBar_views/my_sources_screen.dart';
 

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:reel_news/models/article_model.dart';
 import 'package:reel_news/services/main_news_fetch.dart';
-import 'package:reel_news/widgets/CommonScreenUI.dart'; 
+import 'package:reel_news/widgets/CommonScreenUI.dart';
 import 'package:reel_news/widgets/news_source_tile_w_toggle.dart';
 
 class SourceNewsScreen extends StatefulWidget {
@@ -19,12 +19,25 @@ class _SourceNewsScreenState extends State<SourceNewsScreen> {
     getNews();
   }
 
+  // Fetch news articles and filter them to unique sources
   void getNews() async {
     NewsArticles newsArticlesClass = NewsArticles();
     await newsArticlesClass.getNews();
-    articles = newsArticlesClass.news;
+
+    Set<String> uniqueSources = Set<String>();
+    List<ArticleModel> uniqueArticles = [];
+
+    for (var article in newsArticlesClass.news) {
+      if (article.sourceName != null &&
+          !uniqueSources.contains(article.sourceName)) {
+        uniqueSources.add(article.sourceName!);
+        uniqueArticles.add(article);
+      }
+    }
+
     setState(() {
       _loading = false;
+      articles = uniqueArticles;
     });
   }
 
@@ -32,15 +45,39 @@ class _SourceNewsScreenState extends State<SourceNewsScreen> {
   Widget build(BuildContext context) {
     return CommonScreenUI(
       title: 'News Sources',
-      body: _loading
-          ? Center(child: CircularProgressIndicator())
-          : ListView.builder(
-              itemCount: articles.length,
-              itemBuilder: (context, index) {
-                return NewsSourceTileWithToggle(
-                    sourceName: articles[index].sourceName ?? 'Unknown Source');
-              },
+      body: Column(
+        children: [
+          Container(
+            decoration: BoxDecoration(
+              color: Colors.blue,
+              borderRadius: BorderRadius.all(
+                Radius.circular(10.0),
+              ),
             ),
+            alignment: Alignment.center,
+            padding: EdgeInsets.symmetric(vertical: 3.0, horizontal: 5.0),
+            child: Text(
+              'MySources',
+              style: TextStyle(
+                fontSize: 24.0,
+                color: Colors.white,
+              ),
+            ),
+          ),
+          Expanded(
+            child: _loading
+                ? Center(child: CircularProgressIndicator())
+                : ListView.builder(
+                    itemCount: articles.length,
+                    itemBuilder: (context, index) {
+                      return NewsSourceTileWithToggle(
+                          sourceName:
+                              articles[index].sourceName ?? 'Unknown Source');
+                    },
+                  ),
+          ),
+        ],
+      ),
     );
   }
 }

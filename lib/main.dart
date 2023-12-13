@@ -9,7 +9,7 @@ import 'package:reel_news/screens/category_views/entertainment_screen.dart';
 import 'package:reel_news/screens/category_views/sports_screen.dart';
 import 'package:reel_news/screens/category_views/science_screen.dart';
 import 'package:reel_news/screens/category_views/health_screen.dart';
-import 'package:reel_news/screens/tabBar_views/archive_screen.dart';
+import 'package:reel_news/screens/tabBar_views/my_archive_screen.dart';
 import 'package:reel_news/screens/tabBar_views/my_news_screen.dart';
 import 'package:reel_news/screens/tabBar_views/my_sources_screen.dart';
 import 'package:reel_news/utility/user_source_subscribed_list.dart';
