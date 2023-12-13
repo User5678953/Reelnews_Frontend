@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:reel_news/Dev/storage_service.dart';
+import 'package:reel_news/utility/storage_service.dart';
 import 'package:reel_news/models/article_model.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:reel_news/screens/single_article_screen.dart';
@@ -14,6 +14,8 @@ class DefaultImage extends StatelessWidget {
     this.width = double.infinity,
     this.height = 200,
   });
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -54,6 +56,8 @@ class Newstile extends StatefulWidget {
 }
 
 class _NewstileState extends State<Newstile> {
+  bool _isArchived = false; 
+
   // Function to launch URL
   Future<void> _launchUrl(String url) async {
     final Uri _url = Uri.parse(url);
@@ -63,12 +67,14 @@ class _NewstileState extends State<Newstile> {
   }
 
   // Function to archive an article
-void archiveArticle() async {
+  void archiveArticle() async {
     await StorageService()
         .archiveArticle(widget.title, widget.url, widget.imageUrl);
     print('Article archived: ${widget.title}');
+    setState(() {
+      _isArchived = true; 
+    });
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -79,12 +85,13 @@ void archiveArticle() async {
           context,
           MaterialPageRoute(
             builder: (context) => SingleArticleScreen(
-                article: ArticleModel(
-              title: widget.title,
-              content: widget.content,
-              urlToImage: widget.imageUrl,
-              url: widget.url,
-            )),
+              article: ArticleModel(
+                title: widget.title,
+                content: widget.content,
+                urlToImage: widget.imageUrl,
+                url: widget.url,
+              ),
+            ),
           ),
         );
       },
@@ -161,18 +168,31 @@ void archiveArticle() async {
                   ),
                 ),
               ),
-            Positioned(
-              bottom: 8,
-              right: 8,
-              child: InkWell(
-                onTap: archiveArticle,
+            // Checkmark icon when article is archived
+            if (_isArchived)
+              Positioned(
+                bottom: 8,
+                right: 8,
                 child: CircleAvatar(
-                  backgroundColor: Colors.blue,
+                  backgroundColor: Colors.green,
                   radius: 30,
-                  child: Icon(Icons.archive, color: Colors.white, size: 30),
+                  child: Icon(Icons.check, color: Colors.white, size: 30),
+                ),
+              )
+            else
+              Positioned(
+                bottom: 8,
+                right: 8,
+                child: InkWell(
+                  // Archive the article on tap
+                  onTap: archiveArticle,
+                  child: CircleAvatar(
+                    backgroundColor: Colors.blue,
+                    radius: 30,
+                    child: Icon(Icons.archive, color: Colors.white, size: 30),
+                  ),
                 ),
               ),
-            ),
             // Link button to open the article URL
             Positioned(
               bottom: 8,

@@ -82,16 +82,21 @@ class _MyNewsScreenState extends State<MyNewsScreen> {
     );
   }
 
+//If no sources build
   Widget _noSubscribedSourcesWidget(BuildContext context) {
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const Text(
-            "You haven't subscribed to any sources yet.",
-            style: TextStyle(fontSize: 16, color: Colors.white),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: const Text(
+              "You haven't subscribed to any sources yet.",
+              style: TextStyle(fontSize: 16, color: Colors.white),
+            ),
           ),
-          Center(
+          Padding(
+            padding: const EdgeInsets.all(8.0),
             child: ElevatedButton(
               onPressed: () => Navigator.pushNamed(context, '/sources'),
               child: Text(
