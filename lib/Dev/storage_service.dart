@@ -16,4 +16,14 @@ class StorageService {
     final prefs = await SharedPreferences.getInstance();
     return prefs.getStringList(_archivedArticlesKey) ?? [];
   }
+
+ Future<void> deleteArticle(String articleData) async {
+    final prefs = await SharedPreferences.getInstance();
+    List<String> archived = prefs.getStringList(_archivedArticlesKey) ?? [];
+    archived.remove(articleData);
+    await prefs.setStringList(_archivedArticlesKey, archived);
+  }
 }
+
+
+

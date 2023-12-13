@@ -98,7 +98,7 @@ class _MyNewsScreenState extends State<MyNewsScreen> {
                 'Go to MySources',
                 style: TextStyle(color: Colors.white),
               ),
-              style: ElevatedButton.styleFrom(primary: Colors.blue),
+              style: ElevatedButton.styleFrom(backgroundColor: Colors.blue),
             ),
           ),
         ],
