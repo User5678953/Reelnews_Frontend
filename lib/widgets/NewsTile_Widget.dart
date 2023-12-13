@@ -58,6 +58,20 @@ class Newstile extends StatefulWidget {
 class _NewstileState extends State<Newstile> {
   bool _isArchived = false; 
 
+@override
+  void initState() {
+    super.initState();
+    _checkIfArchived();
+  }
+
+  // Function to check if the article is archived
+  Future<void> _checkIfArchived() async {
+    bool isArchived = await StorageService().isArticleArchived(widget.url);
+    setState(() {
+      _isArchived = isArchived;
+    });
+  }
+
   // Function to launch URL
   Future<void> _launchUrl(String url) async {
     final Uri _url = Uri.parse(url);
