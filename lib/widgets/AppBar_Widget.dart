@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:reel_news/screens/auth_views/login_screen.dart';
 import 'package:reel_news/screens/initial_news_screen.dart'; 
 
 class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
@@ -55,21 +54,21 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
       actions: <Widget>[
         Container(
           decoration: BoxDecoration(
-            color: Colors.red,
+            color: Colors.green,
             borderRadius: BorderRadius.circular(8),
           ),
           margin: EdgeInsets.all(8),
           child: Center(
             child: IconButton(
               icon: Icon(
-                Icons.logout,
+                Icons.refresh,
                 color: Colors.white,
                 size: 24,
               ),
               onPressed: () {
                 Navigator.pushReplacement(
                   context,
-                  MaterialPageRoute(builder: (context) => LoginScreen()),
+                  MaterialPageRoute(builder: (context) => InitialNewsScreen()),
                 );
               },
             ),

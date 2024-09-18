@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:reel_news/screens/auth_views/login_screen.dart';
 import 'package:reel_news/screens/category_views/general_screen.dart';
 import 'package:reel_news/screens/category_views/world_screen.dart';
 import 'package:reel_news/screens/category_views/nation_screen.dart';
@@ -39,7 +38,7 @@ class MyApp extends StatelessWidget {
         primaryColor: Colors.white,
         scaffoldBackgroundColor: Colors.black,
       ),
-       home: LoginScreen(),
+       home: InitialNewsScreen(),
       routes: {
         '/general': (context) => GeneralScreen(),
         '/world': (context) => WorldScreen(),

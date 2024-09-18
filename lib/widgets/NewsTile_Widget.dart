@@ -1,46 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:reel_news/utility/storage_service.dart';
-import 'package:reel_news/models/article_model.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:reel_news/screens/single_article_screen.dart';
-
-class DefaultImage extends StatelessWidget {
-  final String imageUrl;
-  final double width;
-  final double height;
-
-  DefaultImage({
-    required this.imageUrl,
-    this.width = double.infinity,
-    this.height = 200,
-  });
-
-
-
-  @override
-  Widget build(BuildContext context) {
-    return Image.network(
-      imageUrl,
-      width: width,
-      height: height,
-      fit: BoxFit.cover,
-      errorBuilder:
-          (BuildContext context, Object exception, StackTrace? stackTrace) {
-        return Container(
-          width: width,
-          height: height,
-          color: Colors.grey,
-          child: Center(
-            child: Icon(Icons.image, size: 50, color: Colors.white),
-          ),
-        );
-      },
-    );
-  }
-}
 
 class Newstile extends StatefulWidget {
-  final String imageUrl, title, desc, source, url, content;
+  final String? imageUrl, title, desc, source, url, content; // Nullable fields
 
   Newstile({
     required this.imageUrl,
@@ -56,9 +19,9 @@ class Newstile extends StatefulWidget {
 }
 
 class _NewstileState extends State<Newstile> {
-  bool _isArchived = false; 
+  bool _isArchived = false;
 
-@override
+  @override
   void initState() {
     super.initState();
     _checkIfArchived();
@@ -66,14 +29,15 @@ class _NewstileState extends State<Newstile> {
 
   // Function to check if the article is archived
   Future<void> _checkIfArchived() async {
-    bool isArchived = await StorageService().isArticleArchived(widget.url);
+    bool isArchived = await StorageService().isArticleArchived(widget.url ?? '');
     setState(() {
       _isArchived = isArchived;
     });
   }
 
   // Function to launch URL
-  Future<void> _launchUrl(String url) async {
+  Future<void> _launchUrl(String? url) async {
+    if (url == null || url.isEmpty) return;
     final Uri _url = Uri.parse(url);
     if (!await launchUrl(_url)) {
       print('Could not launch $url');
@@ -82,33 +46,21 @@ class _NewstileState extends State<Newstile> {
 
   // Function to archive an article
   void archiveArticle() async {
-    await StorageService()
-        .archiveArticle(widget.title, widget.url, widget.imageUrl);
+    await StorageService().archiveArticle(
+      widget.title ?? 'No title',
+      widget.url ?? '',
+      widget.imageUrl ?? '',
+    );
     print('Article archived: ${widget.title}');
     setState(() {
-      _isArchived = true; 
+      _isArchived = true;
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        // Navigate to SingleArticleScreen when tapped
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => SingleArticleScreen(
-              article: ArticleModel(
-                title: widget.title,
-                content: widget.content,
-                urlToImage: widget.imageUrl,
-                url: widget.url,
-              ),
-            ),
-          ),
-        );
-      },
+      onTap: () => _launchUrl(widget.url), // Make the entire tile clickable
       child: Container(
         margin: EdgeInsets.all(8),
         decoration: BoxDecoration(
@@ -128,41 +80,68 @@ class _NewstileState extends State<Newstile> {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                ClipRRect(
-                  borderRadius: BorderRadius.vertical(top: Radius.circular(10)),
-                  child: DefaultImage(imageUrl: widget.imageUrl),
-                ),
+                // Show image only if the imageUrl is not null or empty
+                if (widget.imageUrl != null && widget.imageUrl!.isNotEmpty)
+                  ClipRRect(
+                    borderRadius: BorderRadius.vertical(top: Radius.circular(10)),
+                    child: Image.network(
+                      widget.imageUrl!,
+                      width: double.infinity,
+                      height: 200,
+                      fit: BoxFit.cover,
+                      errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
+                        return Container(
+                          width: double.infinity,
+                          height: 200,
+                          color: Colors.grey,
+                          child: Center(
+                            child: Icon(Icons.image, size: 50, color: Colors.white),
+                          ),
+                        );
+                      },
+                    ),
+                  ),
                 Padding(
-                  padding: EdgeInsets.fromLTRB(12, 10, 12, 70),
+                  padding: EdgeInsets.all(12),
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    crossAxisAlignment: widget.imageUrl != null && widget.imageUrl!.isNotEmpty
+                        ? CrossAxisAlignment.start
+                        : CrossAxisAlignment.center, // Center headline if no image
                     children: [
-                      Text(
-                        widget.title,
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black87,
+                      Center(
+                        child: Text(
+                          widget.title ?? 'No title available',
+                          style: TextStyle(
+                            fontSize: widget.imageUrl != null && widget.imageUrl!.isNotEmpty
+                                ? 20
+                                : 22, // Make it larger when no image
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black87,
+                          ),
+                          maxLines: 2,
+                          textAlign: TextAlign.center, // Center text
+                          overflow: TextOverflow.ellipsis,
                         ),
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
                       ),
-                      SizedBox(height: 6),
-                      Text(
-                        widget.desc,
-                        style: TextStyle(
-                          fontSize: 16,
-                          color: Colors.black54,
+                      if (widget.imageUrl != null && widget.imageUrl!.isNotEmpty)
+                        SizedBox(height: 6),
+                      // Only show description if there is an image
+                      if (widget.imageUrl != null && widget.imageUrl!.isNotEmpty)
+                        Text(
+                          widget.desc ?? 'No description available',
+                          style: TextStyle(
+                            fontSize: 16,
+                            color: Colors.black54,
+                          ),
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
                         ),
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                      ),
                     ],
                   ),
                 ),
               ],
             ),
-            if (widget.source.isNotEmpty)
+            if (widget.source != null && widget.source!.isNotEmpty)
               Positioned(
                 top: 8,
                 left: 8,
@@ -173,7 +152,7 @@ class _NewstileState extends State<Newstile> {
                     borderRadius: BorderRadius.circular(15),
                   ),
                   child: Text(
-                    widget.source,
+                    widget.source!,
                     style: TextStyle(
                       color: Colors.black,
                       fontSize: 16,
@@ -185,8 +164,8 @@ class _NewstileState extends State<Newstile> {
             // Checkmark icon when article is archived
             if (_isArchived)
               Positioned(
-                bottom: 8,
-                right: 8,
+                top: 8,
+                right: 8, // Move archive icon to the top-right
                 child: CircleAvatar(
                   backgroundColor: Colors.green,
                   radius: 30,
@@ -195,8 +174,8 @@ class _NewstileState extends State<Newstile> {
               )
             else
               Positioned(
-                bottom: 8,
-                right: 8,
+                top: 8,
+                right: 8, // Move archive icon to the top-right
                 child: InkWell(
                   // Archive the article on tap
                   onTap: archiveArticle,
@@ -207,20 +186,6 @@ class _NewstileState extends State<Newstile> {
                   ),
                 ),
               ),
-            // Link button to open the article URL
-            Positioned(
-              bottom: 8,
-              left: 8,
-              child: InkWell(
-                onTap: () => _launchUrl(widget.url),
-                child: CircleAvatar(
-                  backgroundColor: Colors.green,
-                  radius: 30,
-                  child: Icon(Icons.chrome_reader_mode,
-                      color: Colors.white, size: 30),
-                ),
-              ),
-            ),
           ],
         ),
       ),

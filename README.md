@@ -40,3 +40,6 @@ Follow these steps to get the app up and running:
 - - [Repo here](https://github.com/User5678953/ReelNews_Backend)
 
 - **Django DFR is used for authentication:** T
+
+
+//String apiKey = 'a579a4147a5089e75fd1164a4d7331e1';
