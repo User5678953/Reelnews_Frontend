@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:reel_news/widgets/CommonScreenUi.dart';
 import 'package:reel_news/widgets/NewsTile_Widget.dart';
-import 'package:xml/xml.dart'; // For RSS parsing
+// import 'package:xml/xml.dart'; // For RSS parsing
 
 class BusinessScreen extends StatefulWidget {
   @override
@@ -31,9 +31,9 @@ class _BusinessScreenState extends State<BusinessScreen> {
     // Fetch news from GNews API
     await fetchFromGNewsAPI();
 
-    // Fetch news from business-related RSS feeds
-    await fetchFromRSSFeed('CNBC', 'https://thingproxy.freeboard.io/fetch/https://www.cnbc.com/id/10001147/device/rss/rss.html');
-    await fetchFromRSSFeed('MarketWatch', 'https://thingproxy.freeboard.io/fetch/https://feeds.marketwatch.com/marketwatch/topstories/');
+    // // Fetch news from business-related RSS feeds
+    // await fetchFromRSSFeed('CNBC', 'https://thingproxy.freeboard.io/fetch/https://www.cnbc.com/id/10001147/device/rss/rss.html');
+    // await fetchFromRSSFeed('MarketWatch', 'https://thingproxy.freeboard.io/fetch/https://feeds.marketwatch.com/marketwatch/topstories/');
 
     setState(() {
       _loading = false;
@@ -74,39 +74,39 @@ class _BusinessScreenState extends State<BusinessScreen> {
     }
   }
 
-  Future<void> fetchFromRSSFeed(String sourceName, String rssUrl) async {
-    try {
-      var response = await http.get(Uri.parse(rssUrl));
+  // Future<void> fetchFromRSSFeed(String sourceName, String rssUrl) async {
+  //   try {
+  //     var response = await http.get(Uri.parse(rssUrl));
 
-      if (response.statusCode == 200) {
-        var xmlResponse = XmlDocument.parse(response.body);
-        xmlResponse.findAllElements('item').forEach((element) {
-          String title = element.findElements('title').isNotEmpty ? element.findElements('title').single.text : 'No title available'; // Handling null
-          String description = element.findElements('description').isNotEmpty ? element.findElements('description').single.text : 'No description available'; // Handling null
-          String link = element.findElements('link').isNotEmpty ? element.findElements('link').single.text : '';
-          String? imageUrl = element.findElements('enclosure').isNotEmpty
-              ? element.findElements('enclosure').single.getAttribute('url')
-              : null;
+  //     if (response.statusCode == 200) {
+  //       var xmlResponse = XmlDocument.parse(response.body);
+  //       xmlResponse.findAllElements('item').forEach((element) {
+  //         String title = element.findElements('title').isNotEmpty ? element.findElements('title').single.text : 'No title available'; // Handling null
+  //         String description = element.findElements('description').isNotEmpty ? element.findElements('description').single.text : 'No description available'; // Handling null
+  //         String link = element.findElements('link').isNotEmpty ? element.findElements('link').single.text : '';
+  //         String? imageUrl = element.findElements('enclosure').isNotEmpty
+  //             ? element.findElements('enclosure').single.getAttribute('url')
+  //             : null;
 
-          // Add the RSS article to the businessNews list
-          setState(() {
-            businessNews.add({
-              'title': title,
-              'description': description,
-              'url': link,
-              'image': imageUrl, // Nullable, it's fine to pass null
-              'source': {'name': sourceName},
-              'content': description, // Using description as content placeholder
-            });
-          });
-        });
-      } else {
-        print('Failed to load RSS feed from $sourceName. Status code: ${response.statusCode}');
-      }
-    } catch (e) {
-      print('Error fetching RSS feed from $sourceName: $e');
-    }
-  }
+  //         // Add the RSS article to the businessNews list
+  //         setState(() {
+  //           businessNews.add({
+  //             'title': title,
+  //             'description': description,
+  //             'url': link,
+  //             'image': imageUrl, // Nullable, it's fine to pass null
+  //             'source': {'name': sourceName},
+  //             'content': description, // Using description as content placeholder
+  //           });
+  //         });
+  //       });
+  //     } else {
+  //       print('Failed to load RSS feed from $sourceName. Status code: ${response.statusCode}');
+  //     }
+  //   } catch (e) {
+  //     print('Error fetching RSS feed from $sourceName: $e');
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {

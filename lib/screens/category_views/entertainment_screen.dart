@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:reel_news/widgets/CommonScreenUi.dart';
 import 'dart:convert';
-import 'package:xml/xml.dart' as xml;
+// import 'package:xml/xml.dart' as xml;
 import 'package:reel_news/widgets/NewsTile_Widget.dart';
 
 class EntertainmentScreen extends StatefulWidget {
@@ -28,10 +28,10 @@ class _EntertainmentScreenState extends State<EntertainmentScreen> {
     // Fetch entertainment news from GNews API
     await fetchFromGNewsAPI();
 
-    // Fetch entertainment news from RSS feeds
-    await fetchFromRSSFeed('Rolling Stone', 'https://thingproxy.freeboard.io/fetch/https://www.rollingstone.com/feed/');
-    await fetchFromRSSFeed('The Verge Entertainment', 'https://thingproxy.freeboard.io/fetch/https://www.theverge.com/rss/index.xml');
-    await fetchFromRSSFeed('MTV News', 'https://thingproxy.freeboard.io/fetch/https://www.mtv.com/news/rss.xml');
+    // // Fetch entertainment news from RSS feeds
+    // await fetchFromRSSFeed('Rolling Stone', 'https://thingproxy.freeboard.io/fetch/https://www.rollingstone.com/feed/');
+    // await fetchFromRSSFeed('The Verge Entertainment', 'https://thingproxy.freeboard.io/fetch/https://www.theverge.com/rss/index.xml');
+    // await fetchFromRSSFeed('MTV News', 'https://thingproxy.freeboard.io/fetch/https://www.mtv.com/news/rss.xml');
 
     setState(() {
       _loading = false;
@@ -70,43 +70,43 @@ class _EntertainmentScreenState extends State<EntertainmentScreen> {
     }
   }
 
-  // Fetch from RSS Feeds for entertainment news
-  Future<void> fetchFromRSSFeed(String sourceName, String rssUrl) async {
-    try {
-      final response = await http.get(Uri.parse(rssUrl));
-      if (response.statusCode == 200) {
-        final xmlResponse = xml.XmlDocument.parse(response.body);
+  // // Fetch from RSS Feeds for entertainment news
+  // Future<void> fetchFromRSSFeed(String sourceName, String rssUrl) async {
+  //   try {
+  //     final response = await http.get(Uri.parse(rssUrl));
+  //     if (response.statusCode == 200) {
+  //       final xmlResponse = xml.XmlDocument.parse(response.body);
 
-        // Parse RSS feed items
-        xmlResponse.findAllElements('item').forEach((element) {
-          String title = element.findElements('title').single.text;
-          String description = element.findElements('description').single.text;
-          String link = element.findElements('link').single.text;
+  //       // Parse RSS feed items
+  //       xmlResponse.findAllElements('item').forEach((element) {
+  //         String title = element.findElements('title').single.text;
+  //         String description = element.findElements('description').single.text;
+  //         String link = element.findElements('link').single.text;
 
-          // Check for <enclosure> or other image tags
-          String? imageUrl = element.findElements('enclosure').isNotEmpty
-              ? element.findElements('enclosure').single.getAttribute('url')
-              : null;
+  //         // Check for <enclosure> or other image tags
+  //         String? imageUrl = element.findElements('enclosure').isNotEmpty
+  //             ? element.findElements('enclosure').single.getAttribute('url')
+  //             : null;
 
-          // Add RSS article to entertainmentNews list
-          entertainmentNews.add({
-            'title': title,
-            'description': description,
-            'url': link,
-            'image': imageUrl,
-            'source': sourceName,
-            'content': description,
-          });
-        });
+  //         // Add RSS article to entertainmentNews list
+  //         entertainmentNews.add({
+  //           'title': title,
+  //           'description': description,
+  //           'url': link,
+  //           'image': imageUrl,
+  //           'source': sourceName,
+  //           'content': description,
+  //         });
+  //       });
 
-        print('Successfully fetched entertainment news from $sourceName');
-      } else {
-        print('Failed to load RSS feed from $sourceName. Status code: ${response.statusCode}');
-      }
-    } catch (e) {
-      print('Error fetching RSS feed from $sourceName: $e');
-    }
-  }
+  //       print('Successfully fetched entertainment news from $sourceName');
+  //     } else {
+  //       print('Failed to load RSS feed from $sourceName. Status code: ${response.statusCode}');
+  //     }
+  //   } catch (e) {
+  //     print('Error fetching RSS feed from $sourceName: $e');
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {

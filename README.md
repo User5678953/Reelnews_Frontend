@@ -18,9 +18,6 @@
 
 - **Local Storage:** The app uses local storage to save archived articles and user preferences.
 
-- **User Authentication:** Users can register and log in to their accounts to access personalized features.
-  - **JWT token:** on Register Users recieve a unique token from the backend
-
 - **Simple Navigation:** The app uses Flutter's navigation system to switch between different screens and features.
 
 - **API Fetching:** The app uses Gnews API https://gnews.io/ to fetch news.
@@ -34,12 +31,3 @@ Follow these steps to get the app up and running:
 2. **Clone the Repository:** Clone this repository to your local machine using `git clone`.
 
 3. **Run the App:** Use the `flutter run` command to run the app on an emulator, connected device or right in the browser.
-
-## Backend
-- [here](https://reelnews-api-fe5e8d8c10e8.herokuapp.com/)
-- - [Repo here](https://github.com/User5678953/ReelNews_Backend)
-
-- **Django DFR is used for authentication:** T
-
-
-//String apiKey = 'a579a4147a5089e75fd1164a4d7331e1';
