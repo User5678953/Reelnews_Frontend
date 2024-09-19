@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-import 'package:xml/xml.dart' as xml;
+// import 'package:xml/xml.dart' as xml;
 import 'package:reel_news/widgets/CommonScreenUI.dart';
 import 'package:reel_news/widgets/NewsTile_Widget.dart';
 
